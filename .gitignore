@@ -1,0 +1,15 @@
+.runtime/
+.pytest_cache/
+__pycache__/
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+frontend/node_modules/
+frontend/apps/*/node_modules/
+frontend/apps/*/.next/
+.deepeval/
+docs/
+.mypy_cache/
+.ruff_cache/
+IMPLEMENTATION_SUMMARY.md
