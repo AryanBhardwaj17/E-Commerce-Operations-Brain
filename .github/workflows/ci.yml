@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -e "./backend[dev]"
+      - name: Ruff lint
+        run: ruff check --config backend/pyproject.toml backend/src backend/tests backend/scripts
+      - name: Ruff format check
+        run: ruff format --check --config backend/pyproject.toml backend/src backend/tests backend/scripts
+      - name: Mypy
+        run: python -m mypy --config-file backend/pyproject.toml backend/src
+
+  frontend-quality:
+    name: Frontend Build & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend
+      - name: Frontend typecheck
+        run: npm --prefix frontend run typecheck
+      - name: Frontend build
+        run: npm --prefix frontend run build
+
+  compose-topology:
+    name: Compose Topology Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Docker Compose topology
+        run: docker compose -f docker-compose.yml config
+
+  test-unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [lint, frontend-quality, compose-topology]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -e "./backend[dev]"
+      - name: Run unit tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: pytest -c backend/pyproject.toml backend/tests/unit -v --cov=backend/src --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+
+  test-integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: test-unit
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ops_brain
+          POSTGRES_USER: ops_brain
+          POSTGRES_PASSWORD: ops_brain_secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      chromadb:
+        image: chromadb/chroma:latest
+        ports:
+          - 8001:8000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -e "./backend[dev]"
+      - name: Run integration tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DATABASE_URL: postgresql://ops_brain:ops_brain_secret@localhost:5432/ops_brain
+          CHROMADB_HOST: localhost
+          CHROMADB_PORT: 8001
+        run: pytest -c backend/pyproject.toml backend/tests/integration -v
