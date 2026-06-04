@@ -1,0 +1,8 @@
+{
+  "dependencies": ["langgraph>=0.2.0"],
+  "graphs": {
+    "ops_brain": "./src/core/orchestrator.py:graph"
+  },
+  "env": "../.env",
+  "python_version": "3.11"
+}
