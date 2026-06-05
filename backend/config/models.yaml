@@ -1,0 +1,65 @@
+# Per-agent model configuration
+# Override defaults from settings.yaml per agent
+
+defaults:
+  provider: openai
+  model_id: gpt-4o
+  temperature: 0.1
+  max_tokens: 4096
+  fallback_model: gpt-4o-mini
+  timeout_seconds: 60
+
+agents:
+  coordinator:
+    model_id: gpt-4o
+    temperature: 0.0   # deterministic routing
+    max_tokens: 1024
+    timeout_seconds: 30
+
+  sales_analyst:
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    timeout_seconds: 60
+
+  inventory_analyst:
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    timeout_seconds: 60
+
+  marketing_analyst:
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    timeout_seconds: 60
+
+  support_analyst:
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    timeout_seconds: 60
+
+  memory_agent:
+    model_id: gpt-4o-mini  # cheaper for retrieval-only tasks
+    temperature: 0.0
+    max_tokens: 1024
+    timeout_seconds: 30
+
+  synthesis_agent:
+    model_id: gpt-4o
+    temperature: 0.2   # slightly creative for synthesis
+    max_tokens: 4096
+    timeout_seconds: 90
+
+  reflection_agent:
+    model_id: gpt-4o
+    temperature: 0.0   # deterministic checking
+    max_tokens: 1024
+    timeout_seconds: 30
+
+  action_executor:
+    model_id: gpt-4o
+    temperature: 0.0   # zero-temp for deterministic action selection
+    max_tokens: 2048
+    timeout_seconds: 60

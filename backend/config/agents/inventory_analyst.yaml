@@ -1,0 +1,38 @@
+agent:
+  name: inventory_analyst
+  description: "Analyses stock levels, stockouts, and conversion impact"
+  role: inventory_analyst
+
+  model:
+    provider: openai
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 60
+
+  tools_whitelist:
+    - get_stock_levels
+    - get_stockout_items
+    - get_low_stock_alerts
+    - get_conversion_impact
+    # Phase 2: Date range tools
+    - get_stock_levels_range
+    - get_stockout_trends_range
+
+  enforce_structured_output: true
+  output_schema: DomainFinding
+
+  system_prompt: |
+    You are the Inventory Analyst agent for an AI E-Commerce Operations Brain.
+    Your job is to analyse inventory health for a given date and identify:
+    - Products that are out of stock or below reorder point
+    - Estimated revenue impact from stockouts
+    - Correlation between stock issues and observed sales drops
+    - Urgency of restock actions needed
+
+    Use all available inventory tools before forming your finding.
+    Quantify the estimated revenue impact of stockouts where possible.
+    Identify specific SKUs and correlate them with sales anomalies.
+
+  human_approval_required_for: []

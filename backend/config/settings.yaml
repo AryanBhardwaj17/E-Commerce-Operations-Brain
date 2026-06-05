@@ -1,0 +1,71 @@
+# Application settings
+app:
+  name: "E-Commerce Operations Brain"
+  version: "0.1.0"
+  env: ${APP_ENV:-development}
+  log_level: ${LOG_LEVEL:-INFO}
+  api_key_header: "X-API-Key"
+
+# LLM settings
+llm:
+  provider: ${LLM_PROVIDER:-azure}           # azure | openai | ollama
+
+  # Azure OpenAI
+  azure_endpoint: ${AZURE_OPENAI_ENDPOINT:-}
+  azure_api_key: ${AZURE_OPENAI_API_KEY:-}
+  azure_api_version: ${OPENAI_API_VERSION:-2025-04-01-preview}
+  azure_deployment: ${AZURE_OPENAI_DEPLOYMENT:-gpt-4}
+  azure_embedding_deployment: ${AZURE_EMBEDDING_DEPLOYMENT:-text-embedding-005}
+
+  # Standard OpenAI (provider=openai)
+  openai_api_key: ${OPENAI_API_KEY:-}
+  default_model: "gpt-4o"
+  fallback_model: "gpt-4o-mini"
+
+  # Ollama (provider=ollama)
+  ollama_base_url: ${OLLAMA_BASE_URL:-http://localhost:11434/v1}
+  ollama_model: ${OLLAMA_MODEL:-llama3.2}
+
+  # Shared
+  default_temperature: ${LLM_TEMPERATURE:-0.1}
+  default_max_tokens: ${LLM_MAX_TOKENS:-4096}
+  default_timeout_seconds: 60
+
+# Memory settings
+memory:
+  kedb:
+    collection_name: "kedb_incidents"
+    top_k: 5
+  kadb:
+    collection_name: "kadb_artifacts"
+    top_k: 3
+
+# ChromaDB
+chromadb:
+  host: ${CHROMADB_HOST:-localhost}
+  port: ${CHROMADB_PORT:-8001}
+
+# Database
+database:
+  url: ${DATABASE_URL:-postgresql://ops_brain:ops_brain_secret@localhost:5432/ops_brain}
+
+# LangSmith
+langsmith:
+  enabled: true
+  endpoint: ${LANGSMITH_ENDPOINT:-https://api.smith.langchain.com}
+  project: ${LANGSMITH_PROJECT:-ecommerce-ops-brain}
+
+# OpenTelemetry
+otel:
+  enabled: true
+  endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://localhost:4317}
+  service_name: ${OTEL_SERVICE_NAME:-ecommerce-ops-brain}
+
+# Orchestration
+orchestration:
+  max_reflection_iterations: 2
+  hitl_timeout_seconds: 3600  # 1 hour to approve/reject
+
+# Agent paths
+agents:
+  config_dir: "agents"

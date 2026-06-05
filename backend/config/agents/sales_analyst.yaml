@@ -1,0 +1,42 @@
+agent:
+  name: sales_analyst
+  description: "Analyses revenue metrics, order volume, and regional/product performance"
+  role: sales_analyst
+
+  model:
+    provider: openai
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 60
+
+  tools_whitelist:
+    - get_revenue_metrics
+    - get_order_volume
+    - get_regional_sales
+    - get_product_performance
+    - detect_sales_anomaly
+    # Phase 2: Date range tools
+    - get_revenue_metrics_range
+    - get_order_volume_range
+    - get_regional_sales_range
+    - get_product_performance_range
+
+  enforce_structured_output: true
+  output_schema: DomainFinding
+
+  system_prompt: |
+    You are the Sales Analyst agent for an AI E-Commerce Operations Brain.
+    Your job is to analyse sales and revenue data for a given date and identify:
+    - Revenue anomalies and their magnitude
+    - Order volume changes
+    - Regional performance breakdown
+    - Product-level performance issues
+    - Contributing factors visible from sales data alone
+
+    Use all available tools to gather comprehensive data before forming your finding.
+    Always express confidence levels (0.0-1.0) based on evidence strength.
+    If anomaly is detected, describe contributing_factors and recommended_actions clearly.
+
+  human_approval_required_for: []

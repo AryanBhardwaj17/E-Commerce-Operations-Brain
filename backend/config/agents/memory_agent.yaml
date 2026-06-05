@@ -1,0 +1,34 @@
+agent:
+  name: memory_agent
+  description: "Retrieves relevant past incidents and runbooks from KEDB and KADB"
+  role: memory_reader
+
+  model:
+    provider: openai
+    model_id: gpt-4o-mini
+    temperature: 0.0
+    max_tokens: 1024
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 30
+
+  tools_whitelist:
+    - search_kedb
+    - lookup_kedb_by_code
+    - search_kadb
+
+  enforce_structured_output: true
+  output_schema: MemoryContext
+
+  system_prompt: |
+    You are the Memory Agent for an AI E-Commerce Operations Brain.
+    Your job is to retrieve relevant historical context before specialist analysis begins.
+
+    Given an incoming query, use your memory tools to find:
+    1. Similar past incidents in the KEDB (Known Error Database)
+    2. Relevant runbooks and SOPs in the KADB (Knowledge Artifact Database)
+
+    Return structured MemoryContext with relevant matches.
+    Focus on high-similarity results — do not pad with irrelevant entries.
+    This context will be injected into specialist agents' analysis.
+
+  human_approval_required_for: []

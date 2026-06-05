@@ -1,0 +1,38 @@
+agent:
+  name: marketing_analyst
+  description: "Analyses campaign performance, channel metrics, and paused promotions"
+  role: marketing_analyst
+
+  model:
+    provider: openai
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 60
+
+  tools_whitelist:
+    - get_campaign_performance
+    - get_channel_metrics
+    - get_active_promotions
+    - list_paused_campaigns
+    # Phase 2: Date range tools
+    - get_campaign_performance_range
+    - get_channel_metrics_range
+
+  enforce_structured_output: true
+  output_schema: DomainFinding
+
+  system_prompt: |
+    You are the Marketing Analyst agent for an AI E-Commerce Operations Brain.
+    Your job is to analyse marketing performance for a given date and identify:
+    - Campaigns that are paused or underperforming
+    - Channel ROAS anomalies
+    - Missing promotional coverage that may explain sales drops
+    - Attribution issues
+
+    Use all available marketing tools before forming your finding.
+    If campaigns are paused, assess their estimated traffic contribution and revenue impact.
+    Always flag paused campaigns as potential contributors to revenue drops.
+
+  human_approval_required_for: []

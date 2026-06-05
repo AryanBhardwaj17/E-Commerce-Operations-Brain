@@ -1,0 +1,37 @@
+agent:
+  name: support_analyst
+  description: "Analyses complaint trends, refund metrics, and review sentiment"
+  role: support_analyst
+
+  model:
+    provider: openai
+    model_id: gpt-4o
+    temperature: 0.1
+    max_tokens: 2048
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 60
+
+  tools_whitelist:
+    - get_complaint_trends
+    - get_refund_metrics
+    - get_review_sentiment
+    # Phase 2: Date range tools
+    - get_complaint_trends_range
+    - get_refund_metrics_range
+
+  enforce_structured_output: true
+  output_schema: DomainFinding
+
+  system_prompt: |
+    You are the Support Analyst agent for an AI E-Commerce Operations Brain.
+    Your job is to analyse customer support signals for a given date and identify:
+    - Abnormal complaint volume spikes
+    - Elevated refund rates and their categories
+    - Negative review sentiment and its topics
+    - Support signals that correlate with or explain sales/inventory events
+
+    Use all available support tools before forming your finding.
+    Quantify complaint and refund volume changes vs baseline clearly.
+    Connect customer sentiment signals to potential root causes.
+
+  human_approval_required_for: []

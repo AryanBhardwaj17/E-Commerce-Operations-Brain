@@ -1,0 +1,94 @@
+# Tool permissions — deny-by-default RBAC
+# Each agent is assigned a role; each role has an explicit tool whitelist.
+# Any tool not listed is denied. Use "*" only for admin roles.
+
+roles:
+  # ── Read-only analytical roles ──────────────────────────────────────────────
+  sales_analyst:
+    tools:
+      - get_revenue_metrics
+      - get_order_volume
+      - get_regional_sales
+      - get_product_performance
+      - detect_sales_anomaly
+      # Phase 2: date range variants
+      - get_revenue_metrics_range
+      - get_order_volume_range
+      - get_regional_sales_range
+      - get_product_performance_range
+
+  inventory_analyst:
+    tools:
+      - get_stock_levels
+      - get_stockout_items
+      - get_low_stock_alerts
+      - get_conversion_impact
+      # Phase 2: date range variants
+      - get_stock_levels_range
+      - get_stockout_trends_range
+
+  marketing_analyst:
+    tools:
+      - get_campaign_performance
+      - get_channel_metrics
+      - get_active_promotions
+      - list_paused_campaigns
+      # Phase 2: date range variants
+      - get_campaign_performance_range
+      - get_channel_metrics_range
+
+  support_analyst:
+    tools:
+      - get_complaint_trends
+      - get_refund_metrics
+      - get_review_sentiment
+      # Phase 2: date range variants
+      - get_complaint_trends_range
+      - get_refund_metrics_range
+
+  # ── Memory read role ─────────────────────────────────────────────────────────
+  memory_reader:
+    tools:
+      - search_kedb
+      - lookup_kedb_by_code
+      - search_kadb
+
+  # ── Action execution role (all actions require HITL gate) ────────────────────
+  action_executor:
+    tools:
+      - trigger_emergency_restock
+      - apply_discount_code
+      - resume_paused_campaign
+      - add_inventory_item
+      - escalate_to_support_team
+      - send_customer_notification
+
+  # ── Coordinator / synthesis / reflection (no tools — reasoning only) ─────────
+  reasoning_only:
+    tools: []
+
+  # ── Admin (full access — assign sparingly) ───────────────────────────────────
+  admin:
+    tools:
+      - "*"
+
+# ── Agent → Role mapping ──────────────────────────────────────────────────────
+agents:
+  coordinator:
+    role: reasoning_only
+  sales_analyst:
+    role: sales_analyst
+  inventory_analyst:
+    role: inventory_analyst
+  marketing_analyst:
+    role: marketing_analyst
+  support_analyst:
+    role: support_analyst
+  memory_agent:
+    role: memory_reader
+  synthesis_agent:
+    role: reasoning_only
+  reflection_agent:
+    role: reasoning_only
+  action_executor:
+    role: action_executor

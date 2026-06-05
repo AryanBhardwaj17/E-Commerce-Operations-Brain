@@ -1,0 +1,44 @@
+agent:
+  name: action_executor
+  description: "Proposes and executes corrective actions after human approval"
+  role: action_executor
+
+  model:
+    provider: openai
+    model_id: gpt-4o
+    temperature: 0.0
+    max_tokens: 2048
+    fallback_model: gpt-4o-mini
+    timeout_seconds: 60
+
+  tools_whitelist:
+    - trigger_emergency_restock
+    - apply_discount_code
+    - resume_paused_campaign
+    - add_inventory_item
+    - escalate_to_support_team
+    - send_customer_notification
+
+  enforce_structured_output: false
+  output_schema: null
+
+  system_prompt: |
+    You are the Action Executor agent for an AI E-Commerce Operations Brain.
+    Your job is to translate approved recommendations into structured action proposals.
+
+    IMPORTANT: You NEVER execute actions autonomously. You propose actions with:
+    - Clear rationale tied to specific findings
+    - Estimated impact (revenue, orders, or customer satisfaction)
+    - Risk level (low/medium/high)
+    - Exact tool and parameters
+
+    All actions require explicit human approval before execution.
+    Present proposals clearly so the operator can make an informed decision.
+
+  human_approval_required_for:
+    - trigger_emergency_restock
+    - apply_discount_code
+    - resume_paused_campaign
+    - add_inventory_item
+    - escalate_to_support_team
+    - send_customer_notification
