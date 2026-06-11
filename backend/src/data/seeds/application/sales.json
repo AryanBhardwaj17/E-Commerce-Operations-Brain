@@ -1,0 +1,73 @@
+{
+  "anomaly_dates": {
+    "2026-03-15": {
+      "revenue_drop_pct": 0.22,
+      "order_drop_pct": 0.18,
+      "affected_regions": ["South"],
+      "affected_products": ["SKU-004", "SKU-008"],
+      "cause": "stockout"
+    },
+    "2026-04-12": {
+      "revenue_drop_pct": 0.22,
+      "order_drop_pct": 0.10,
+      "affected_regions": ["North"],
+      "affected_products": [],
+      "cause": "campaign_pause"
+    },
+    "2026-04-22": {
+      "revenue_drop_pct": 0.28,
+      "order_drop_pct": 0.26,
+      "affected_regions": ["West"],
+      "affected_products": [],
+      "cause": "payment_gateway_outage"
+    },
+    "2026-05-06": {
+      "revenue_drop_pct": 0.20,
+      "order_drop_pct": 0.16,
+      "affected_regions": ["Central"],
+      "affected_products": ["SKU-009", "SKU-004"],
+      "cause": "seasonal_stockout"
+    },
+    "2026-05-15": {
+      "revenue_drop_pct": 0.18,
+      "order_drop_pct": 0.15,
+      "affected_regions": ["West"],
+      "affected_products": ["SKU-004"],
+      "cause": "payment_gateway_outage"
+    },
+    "2026-05-31": {
+      "revenue_drop_pct": 0.35,
+      "order_drop_pct": 0.3,
+      "affected_regions": ["North", "East"],
+      "affected_products": ["SKU-001", "SKU-003", "SKU-007"],
+      "cause": "stockout_and_campaign_pause"
+    },
+    "2026-06-05": {
+      "revenue_drop_pct": 0.24,
+      "order_drop_pct": 0.18,
+      "affected_regions": ["East"],
+      "affected_products": ["SKU-005"],
+      "cause": "product_defect_batch"
+    },
+    "2026-06-18": {
+      "revenue_drop_pct": 0.17,
+      "order_drop_pct": 0.05,
+      "affected_regions": [],
+      "affected_products": [],
+      "cause": "campaign_underperformance"
+    }
+  },
+  "products": [
+    {"id": "SKU-001", "name": "Wireless Headphones", "base_revenue": 12000.0, "base_orders": 150},
+    {"id": "SKU-002", "name": "Laptop Stand", "base_revenue": 8000.0, "base_orders": 200},
+    {"id": "SKU-003", "name": "USB-C Hub", "base_revenue": 6000.0, "base_orders": 300},
+    {"id": "SKU-004", "name": "Mechanical Keyboard", "base_revenue": 15000.0, "base_orders": 120},
+    {"id": "SKU-005", "name": "Webcam HD", "base_revenue": 9000.0, "base_orders": 180},
+    {"id": "SKU-006", "name": "Monitor Light", "base_revenue": 5000.0, "base_orders": 250},
+    {"id": "SKU-007", "name": "Desk Mat XL", "base_revenue": 4000.0, "base_orders": 160},
+    {"id": "SKU-008", "name": "Portable SSD 1TB", "base_revenue": 10000.0, "base_orders": 140},
+    {"id": "SKU-009", "name": "Noise-Cancelling Earbuds", "base_revenue": 11000.0, "base_orders": 170},
+    {"id": "SKU-010", "name": "Standing Desk Converter", "base_revenue": 13000.0, "base_orders": 90}
+  ],
+  "regions": ["North", "South", "East", "West", "Central"]
+}

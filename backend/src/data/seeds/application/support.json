@@ -1,0 +1,56 @@
+{
+  "spike_dates": {
+    "2026-03-15": {
+      "complaint_multiplier": 1.6,
+      "refund_spike_pct": 0.18,
+      "primary_category": "out_of_stock",
+      "secondary_category": "shipping_delay"
+    },
+    "2026-04-22": {
+      "complaint_multiplier": 2.1,
+      "refund_spike_pct": 0.30,
+      "primary_category": "payment_failed",
+      "secondary_category": "order_cancelled"
+    },
+    "2026-05-06": {
+      "complaint_multiplier": 1.5,
+      "refund_spike_pct": 0.15,
+      "primary_category": "out_of_stock",
+      "secondary_category": "shipping_delay"
+    },
+    "2026-05-15": {
+      "complaint_multiplier": 1.9,
+      "refund_spike_pct": 0.22,
+      "primary_category": "payment_failed",
+      "secondary_category": "order_cancelled"
+    },
+    "2026-05-31": {
+      "complaint_multiplier": 2.8,
+      "refund_spike_pct": 0.45,
+      "primary_category": "out_of_stock",
+      "secondary_category": "shipping_delay"
+    },
+    "2026-06-05": {
+      "complaint_multiplier": 2.4,
+      "refund_spike_pct": 0.55,
+      "primary_category": "product_defect",
+      "secondary_category": "return_issue"
+    }
+  },
+  "complaint_categories": [
+    "out_of_stock",
+    "shipping_delay",
+    "product_defect",
+    "payment_failed",
+    "order_cancelled",
+    "wrong_item",
+    "return_issue"
+  ],
+  "review_topics": [
+    "product quality",
+    "shipping speed",
+    "customer service",
+    "pricing",
+    "packaging"
+  ]
+}

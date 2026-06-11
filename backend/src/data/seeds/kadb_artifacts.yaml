@@ -1,0 +1,311 @@
+artifacts:
+  - artifact_id: "kadb-001"
+    title: "Flash Discount Recovery Playbook"
+    artifact_type: "playbook"
+    tags: "discount,sales_recovery,revenue,marketing"
+    content: >
+      # Flash Discount Recovery Playbook
+
+      ## When to Use
+      Apply when daily revenue drops >15% vs same day last week and the root cause
+      is NOT a site outage or payment failure (i.e., demand is present but converting
+      poorly due to price sensitivity or out-of-stock substitutes).
+
+      ## Step-by-Step
+      1. **Identify scope**: Pull affected product categories from anomaly report.
+      2. **Create discount code**: 15% for drops <25%. 20% for drops >25%.
+         - Expiry: 48 hours from activation time
+         - Minimum order: $30
+         - Cap: 500 uses to protect margin
+      3. **Segment audience**: Customers who viewed affected products in last 7 days
+         but did not purchase.
+      4. **Deploy email campaign**: Subject = "Just for you — exclusive offer inside"
+         Send time: within 2 hours of incident declaration.
+      5. **Monitor**: Check conversion lift at 2h, 6h, 24h marks.
+         - If <40% lift at 6h: deepen to 25% discount
+         - If >80% redemption rate at 24h: extend by 24 hours
+      6. **Post-incident**: Update KEDB occurrence count and capture lessons in the incident review.
+
+      ## Expected Outcome
+      70-85% revenue recovery within 48-72 hours of activation.
+
+      ## Owner: Growth Marketing Team
+      ## Escalation: VP Marketing if recovery <40% at 24h
+
+  - artifact_id: "kadb-002"
+    title: "Emergency Product Restock SOP"
+    artifact_type: "sop"
+    tags: "stockout,inventory,restock,emergency,operations"
+    content: >
+      # Emergency Product Restock Standard Operating Procedure
+
+      ## Trigger Conditions
+      - 3+ SKUs simultaneously at zero stock
+      - Estimated lost revenue >$5,000/day
+      - Duration of stockout >4 hours
+
+      ## Procedure
+
+      ### Immediate (0-2 hours)
+      1. Confirm stockout via WMS (Warehouse Management System) — do not rely on
+         storefront only.
+      2. Identify affected SKUs, quantities needed, and target restock date.
+      3. Contact primary supplier via emergency hotline (see contacts doc).
+      4. Request air-freight quote for top-3 revenue-impact SKUs.
+      5. Set product pages to "Notify when back in stock" mode.
+
+      ### Short-Term (2-24 hours)
+      6. Place emergency PO in ERP system tagged "EMERGENCY — expedite".
+      7. Notify warehouse receiving team to clear dock space.
+      8. Enable pre-order with estimated delivery date for high-demand SKUs.
+      9. Run "Similar products" recommendation widget on stockout pages.
+
+      ### Recovery
+      10. Update reorder point upward by 30% post-incident.
+      11. Run demand forecast retrospective with procurement team.
+      12. File supplier performance note if lead time exceeded SLA.
+
+      ## Owner: Head of Inventory Operations
+      ## Escalation: COO if supplier cannot fulfil within 72 hours
+
+  - artifact_id: "kadb-003"
+    title: "Campaign Pause Recovery Runbook"
+    artifact_type: "runbook"
+    tags: "campaign_pause,marketing,paid_search,social,recovery"
+    content: >
+      # Campaign Pause Recovery Runbook
+
+      ## Detection Signals
+      - Revenue drop >15% with no inventory anomaly
+      - Paid traffic (Google/Meta) drops >40% vs prior 7-day average
+      - Marketing dashboard shows campaigns in "Paused" state
+
+      ## Recovery Steps
+
+      1. **Identify paused campaigns**: Query marketing platform API for status.
+         Common pause reasons: budget exhausted, billing failure, policy violation,
+         manual pause not reversed after test.
+
+      2. **Billing failures**: Check ad account payment methods. Update card or
+         add backup payment if primary is expired/declined.
+
+      3. **Budget exhaustion**: Top up budget immediately. Apply +30% buffer.
+         Enable "Accelerated" delivery temporarily to recapture lost impressions.
+
+      4. **Manual/accidental pauses**: Resume all campaigns immediately.
+         Send Slack alert to marketing channel confirming resume action.
+
+      5. **Policy violations**: Do NOT resume without reviewing violation reason.
+         Engage compliance team. Swap creative/copy as needed.
+
+      6. **Traffic recovery monitoring**: Paid traffic should recover within 2 hours.
+         Revenue lag is typically 3-6 hours after traffic recovery.
+
+      ## Prevention
+      - Set platform-level email/SMS alerts for budget < 10% remaining
+      - Weekly campaign health check report every Monday 9am
+      - Require 2-person approval for any campaign pause during peak season
+
+      ## Owner: Paid Media Manager
+      ## Escalation: Head of Marketing
+
+  - artifact_id: "kadb-004"
+    title: "Customer Escalation and Communication Guide"
+    artifact_type: "guide"
+    tags: "customer_support,escalation,communication,complaints"
+    content: >
+      # Customer Escalation and Communication Guide
+
+      ## Escalation Tiers
+
+      ### Tier 1 — Self-Service (0-4 hours)
+      - FAQ chatbot handles: order status, return initiation, basic refunds
+      - Auto-refund approved for orders <$50 with documented defect photo
+
+      ### Tier 2 — Agent Assisted (4-24 hours)
+      - Dedicated support agents handle: shipping disputes, complex returns,
+        account issues, partial refunds
+      - SLA: first response within 4 hours
+
+      ### Tier 3 — Manager Escalation (>24 hours or VIP)
+      - Customer lifetime value >$500 → auto-escalate to senior agent
+      - Complaint involves potential legal/safety issue → escalate immediately
+      - SLA breach >48 hours → notify customer success manager
+
+      ## Proactive Communication Templates
+
+      ### Shipping Delay
+      Subject: Update on your [Store] order #[ORDER_ID]
+      Body: We wanted to let you know that your order has experienced a small delay.
+      We expect delivery by [NEW_DATE]. As a thank you for your patience, we've
+      applied a $5 credit to your account. [Track Order] [Contact Us]
+
+      ### Stock Alert
+      Subject: Great news — [PRODUCT] is coming back!
+      Body: You recently showed interest in [PRODUCT]. We're restocking soon and
+      wanted you to be first in line. [Pre-order Now] [Notify Me]
+
+      ## Owner: Head of Customer Experience
+      ## Escalation: CCO for systemic issues affecting >100 customers
+
+  - artifact_id: "kadb-005"
+    title: "Payment Gateway Recovery SOP"
+    artifact_type: "sop"
+    tags: "payment_gateway,checkout,outage,recovery,critical"
+    content: >
+      # Payment Gateway Recovery Standard Operating Procedure
+
+      ## Severity: CRITICAL — Activate immediately on detection
+
+      ## Detection
+      - Checkout error rate >5% (baseline: <0.5%)
+      - Zero successful transactions for >15 minutes
+      - Support tickets mentioning "payment declined" spike >3x
+
+      ## Immediate Actions (0-30 minutes)
+
+      1. Verify the issue is gateway-side (not client-side):
+         - Check Stripe/PayPal status page: status.stripe.com
+         - Try a test transaction on staging environment
+         - Check internal alerting (PagerDuty/OpsGenie)
+
+      2. Activate backup payment provider:
+         - Primary: Stripe → Backup: PayPal Express Checkout
+         - Toggle backup provider flag in feature flag system (LaunchDarkly)
+         - Confirm backup transactions completing before announcing
+
+      3. Update site banner: "We are experiencing temporary payment issues.
+         Our team is working on a fix. ETA: [TIME]. PayPal checkout is available."
+
+      4. Alert channels: #incidents Slack, on-call engineer, VP Engineering
+
+      ## Recovery Actions (30min - 4 hours)
+
+      5. Monitor primary gateway recovery via status page
+      6. Run catch-up for any orders in "pending payment" state
+      7. Send email to customers who had failed checkouts: offer $10 credit
+      8. File incident report with gateway SLA tracking
+
+      ## Post-Incident
+
+      9. Revenue recovery via retargeting campaign to cart-abandoners
+      10. Update KEDB occurrence count and timeline
+      11. Quarterly review: consider dual-active payment configuration
+
+      ## Owner: Engineering On-Call + Head of E-Commerce Operations
+
+  - artifact_id: "kadb-006"
+    title: "Action Outcome Log — Stockout-Driven Sales Drop (2026-05-31)"
+    artifact_type: "incident_outcome"
+    tags: "stockout,discount,restock,outcome,sales_recovery,what_worked"
+    content: >
+      # Action Outcome Log — 2026-05-31 Sales Drop (stockout + campaign pause)
+
+      ## Incident
+      Revenue dropped 35% with three top SKUs (SKU-001, SKU-003, SKU-007) out of stock
+      while two paid-search campaigns were paused.
+
+      ## Actions Taken and Measured Outcomes (ranked best-first)
+      1. **apply_discount_code (20% off affected categories, 48h)** — MOST EFFECTIVE.
+         Recovered ~58% of lost revenue within 48 hours. Conversion lift visible within 4h.
+      2. **trigger_emergency_restock (air-freight top 3 SKUs)** — Restored availability in
+         36h; contributed ~25% of total recovery once stock was live.
+      3. **resume_paused_campaign (2 paid-search campaigns)** — Recovered paid traffic in
+         ~2h; ~12% of recovery, fastest to take effect but smallest revenue share.
+      4. **send_customer_notification (back-in-stock to 7-day viewers)** — Modest direct
+         lift (~5%) but high downstream retention value.
+
+      ## Verdict
+      Discount + restock combined recovered ~83% of lost revenue within the same week.
+      Discount alone was the single highest-impact lever; restock was the necessary enabler.
+
+      ## Owner: Growth + Inventory Operations
+
+  - artifact_id: "kadb-007"
+    title: "Action Outcome Log — Campaign-Pause Revenue Drop (2026-04-12)"
+    artifact_type: "incident_outcome"
+    tags: "campaign_pause,resume_campaign,outcome,marketing,what_worked"
+    content: >
+      # Action Outcome Log — 2026-04-12 Campaign-Pause Revenue Drop
+
+      ## Incident
+      Revenue fell 22% after two top campaigns (CMP-002, CMP-003) were paused on a
+      billing failure; no inventory or support anomaly present.
+
+      ## Actions Taken and Measured Outcomes (ranked best-first)
+      1. **resume_campaign (CMP-002, CMP-003) + budget top-up** — MOST EFFECTIVE.
+         Paid traffic recovered within 2h; ~75% of lost revenue recovered within 24h.
+      2. **apply_discount_code (10% off)** — Added ~10% incremental recovery but
+         compressed margin; judged unnecessary once campaigns resumed.
+
+      ## Verdict
+      For pause-driven drops, resuming campaigns + adding a budget buffer is the highest-ROI
+      action. Discounts add little once traffic is restored and are not recommended here.
+
+      ## Owner: Paid Media Manager
+
+  - artifact_id: "kadb-008"
+    title: "Action Outcome Log — Product Defect Refund Spike (2026-06-05)"
+    artifact_type: "incident_outcome"
+    tags: "product_defect,refund_spike,support_ticket,escalation,outcome,what_worked"
+    content: >
+      # Action Outcome Log — 2026-06-05 Refund Spike (defective batch, SKU-005)
+
+      ## Incident
+      Refund rate hit 8.5% (vs 3.2% baseline) on SKU-005 with negative reviews citing the
+      same defect.
+
+      ## Actions Taken and Measured Outcomes (ranked best-first)
+      1. **create_support_ticket + escalate_to_support_team (pull SKU, recall batch)** —
+         MOST EFFECTIVE. Stopped further defective shipments within 3h; refund rate
+         normalized in 5 days.
+      2. **send_customer_notification (proactive recall to batch purchasers)** — Cut
+         inbound complaint volume ~40% and protected review sentiment.
+
+      ## Verdict
+      Speed of containment (pull + escalate) mattered far more than compensation. Proactive
+      notification was the key sentiment-saver.
+
+      ## Owner: Head of Customer Experience + Inventory Quality
+
+  - artifact_id: "kadb-009"
+    title: "Seasonal Demand Pre-Stocking Playbook"
+    artifact_type: "playbook"
+    tags: "seasonal,demand_forecast,restock,inventory,prevention"
+    content: >
+      # Seasonal Demand Pre-Stocking Playbook
+
+      ## When to Use
+      Approaching known Q2 (summer) or Q4 (gifting) demand surges for seasonal SKUs.
+
+      ## Steps
+      1. Pull prior-year surge multipliers per SKU from sales history.
+      2. Raise reorder points +30% for top-10 seasonal SKUs 3 weeks before peak.
+      3. Pre-book air-freight capacity for the top-3 revenue SKUs.
+      4. Stage a "notify me" + pre-order flow on at-risk product pages.
+
+      ## Expected Outcome
+      Historically cuts seasonal stockout revenue loss from ~22% to <6%.
+
+      ## Owner: Head of Inventory Operations
+
+  - artifact_id: "kadb-010"
+    title: "Cross-Channel Discount Effectiveness Reference"
+    artifact_type: "reference"
+    tags: "discount,effectiveness,outcome,marketing,what_worked,benchmark"
+    content: >
+      # Discount Effectiveness Reference (aggregated across past incidents)
+
+      ## Observed Recovery by Action (median across recorded incidents)
+      - apply_discount_code (15-20%, 48h, targeted email): 70-85% revenue recovery —
+        BEST for demand-present, price-sensitive drops.
+      - resume_campaign + budget buffer: 70-78% recovery — BEST for paused-campaign drops.
+      - trigger_emergency_restock: necessary enabler for stockout drops; 25-45% of recovery.
+      - send_customer_notification: 5-15% direct lift; strongest retention/sentiment value.
+
+      ## Rule of Thumb
+      Match the action to the root cause: discount for price-sensitivity, resume for
+      traffic loss, restock for availability, escalate/ticket for defects. Stacking a
+      discount on top of a traffic fix usually wastes margin.
+
+      ## Owner: Growth Analytics

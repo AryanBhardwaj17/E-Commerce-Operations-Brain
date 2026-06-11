@@ -1,0 +1,98 @@
+{
+  "products": [
+    {
+      "id": "SKU-001",
+      "name": "Wireless Headphones",
+      "reorder_point": 50,
+      "lead_days": 5,
+      "unit_price": 149.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-002",
+      "name": "Laptop Stand",
+      "reorder_point": 80,
+      "lead_days": 3,
+      "unit_price": 59.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-003",
+      "name": "USB-C Hub",
+      "reorder_point": 100,
+      "lead_days": 4,
+      "unit_price": 89.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-004",
+      "name": "Mechanical Keyboard",
+      "reorder_point": 40,
+      "lead_days": 7,
+      "unit_price": 129.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-005",
+      "name": "Webcam HD",
+      "reorder_point": 60,
+      "lead_days": 4,
+      "unit_price": 79.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-006",
+      "name": "Monitor Light",
+      "reorder_point": 75,
+      "lead_days": 3,
+      "unit_price": 44.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-007",
+      "name": "Desk Mat XL",
+      "reorder_point": 55,
+      "lead_days": 5,
+      "unit_price": 29.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-008",
+      "name": "Portable SSD 1TB",
+      "reorder_point": 45,
+      "lead_days": 6,
+      "unit_price": 119.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-009",
+      "name": "Noise-Cancelling Earbuds",
+      "reorder_point": 70,
+      "lead_days": 5,
+      "unit_price": 99.99,
+      "currency": "USD"
+    },
+    {
+      "id": "SKU-010",
+      "name": "Standing Desk Converter",
+      "reorder_point": 30,
+      "lead_days": 10,
+      "unit_price": 199.99,
+      "currency": "USD"
+    }
+  ],
+  "stockout_dates": {
+    "2026-03-15": ["SKU-004", "SKU-008"],
+    "2026-05-06": ["SKU-009", "SKU-004"],
+    "2026-05-30": ["SKU-001", "SKU-007"],
+    "2026-05-31": ["SKU-001", "SKU-003", "SKU-007"],
+    "2026-06-01": ["SKU-001", "SKU-003"]
+  },
+  "low_stock_dates": {
+    "2026-03-15": ["SKU-009"],
+    "2026-05-06": ["SKU-008"],
+    "2026-05-31": ["SKU-002", "SKU-005"],
+    "2026-06-01": ["SKU-002", "SKU-004", "SKU-005"],
+    "2026-06-05": ["SKU-005"]
+  }
+}

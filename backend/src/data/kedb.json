@@ -1,0 +1,282 @@
+{
+  "entries": [
+    {
+      "id": "kedb-001",
+      "error_code": "SALES-DROP-STOCKOUT",
+      "title": "Sales revenue drop caused by product stockout",
+      "description": "Sudden drop in daily revenue (>20%) correlated with zero-stock events across multiple high-demand SKUs. Common pattern: inventory replenishment lag following a viral product moment or promotional campaign that burned through stock faster than forecast. Affects conversion rate immediately as shoppers bounce to competitors.\n",
+      "root_cause": "Stockout of high-demand SKUs due to inventory replenishment lag",
+      "resolution": "1. Immediately trigger emergency restock PO for affected SKUs. 2. Add substitute products to category landing pages. 3. Enable back-in-stock notification capture. 4. Adjust reorder point upward by 30% for affected SKUs. 5. Run post-incident demand forecast review.\n",
+      "affected_domains": [
+        "sales",
+        "inventory"
+      ],
+      "recommended_actions": [
+        "trigger_emergency_restock",
+        "send_customer_notification"
+      ],
+      "severity": "high",
+      "occurrence_count": 4,
+      "tags": "stockout,revenue_drop,inventory,conversion",
+      "created_at": "2026-06-12T11:47:33.430472+00:00"
+    },
+    {
+      "id": "kedb-002",
+      "error_code": "SALES-DROP-CAMPAIGN-PAUSE",
+      "title": "Sales drop due to paused marketing campaigns",
+      "description": "Revenue decline (15-40%) following unplanned pause of top-performing paid acquisition campaigns. Typically caused by budget exhaustion mid-month, card payment failures on ad accounts, or manual pauses not reversed. Paid search and social retargeting pauses cause fastest visible impact.\n",
+      "root_cause": "Key acquisition campaigns paused \u2014 loss of paid traffic",
+      "resolution": "1. Immediately resume paused campaigns. 2. Check ad account billing and replenish budget. 3. Add 20% budget buffer to prevent mid-period exhaustion. 4. Set up automated campaign health monitoring alerts.\n",
+      "affected_domains": [
+        "sales",
+        "marketing"
+      ],
+      "recommended_actions": [
+        "resume_paused_campaign"
+      ],
+      "severity": "high",
+      "occurrence_count": 3,
+      "tags": "campaign_pause,paid_search,revenue_drop,marketing",
+      "created_at": "2026-06-12T11:47:35.323506+00:00"
+    },
+    {
+      "id": "kedb-003",
+      "error_code": "SALES-DROP-PAYMENT-GATEWAY",
+      "title": "Sales drop due to payment gateway outage",
+      "description": "Checkout abandonment spike and order volume decline caused by payment processor intermittent failures or full outage. Cart abandonment rate rises above 80%. Usually confined to 1-6 hour windows. West region historically more affected due to primary gateway routing.\n",
+      "root_cause": "Payment gateway service degradation or outage",
+      "resolution": "1. Activate backup payment processor immediately. 2. Display site-wide banner about payment issues with ETA. 3. Enable offline order capture for high-value customers. 4. Send retargeting campaign to cart-abandoners after gateway restored. 5. File SLA incident report with payment processor.\n",
+      "affected_domains": [
+        "sales",
+        "support"
+      ],
+      "recommended_actions": [
+        "send_customer_notification",
+        "escalate_to_support_team"
+      ],
+      "severity": "critical",
+      "occurrence_count": 2,
+      "tags": "payment_gateway,checkout,revenue_drop,outage",
+      "created_at": "2026-06-12T11:47:35.782678+00:00"
+    },
+    {
+      "id": "kedb-004",
+      "error_code": "SUPPORT-COMPLAINT-SPIKE-SHIPPING",
+      "title": "Customer complaint spike due to shipping delays",
+      "description": "Support ticket volume increases 2-3x baseline when carrier experiences regional delays. Complaints cluster around 'where is my order' category. Reviews turn negative within 48 hours if not proactively communicated.\n",
+      "root_cause": "Third-party carrier regional shipping delay",
+      "resolution": "1. Pull affected order list from OMS. 2. Send proactive delay notification to affected customers. 3. Offer $5 credit voucher to appease waiting customers. 4. Escalate to carrier account manager for SLA breach. 5. Temporarily suppress shipping time promises on product pages.\n",
+      "affected_domains": [
+        "support",
+        "sales"
+      ],
+      "recommended_actions": [
+        "send_customer_notification",
+        "escalate_to_support_team"
+      ],
+      "severity": "medium",
+      "occurrence_count": 6,
+      "tags": "shipping_delay,complaint_spike,support,carrier",
+      "created_at": "2026-06-12T11:47:36.414567+00:00"
+    },
+    {
+      "id": "kedb-005",
+      "error_code": "SUPPORT-REFUND-SPIKE-DEFECT",
+      "title": "Refund spike due to product defect batch",
+      "description": "Refund request rate exceeds 8% (vs 3.2% baseline) concentrated on specific SKU. Indicates manufacturing defect in a production batch. Review sentiment turns sharply negative with 1-2 star reviews mentioning the same defect.\n",
+      "root_cause": "Defective product batch shipped to customers",
+      "resolution": "1. Immediately pull affected SKU from storefront. 2. Identify batch/lot number from warehouse. 3. Issue proactive recall notification to purchasers of affected batch. 4. Expedite refund processing (same-day vs 5-day standard). 5. Contact supplier quality team for root cause analysis.\n",
+      "affected_domains": [
+        "support",
+        "inventory"
+      ],
+      "recommended_actions": [
+        "escalate_to_support_team",
+        "trigger_emergency_restock"
+      ],
+      "severity": "critical",
+      "occurrence_count": 1,
+      "tags": "product_defect,refund_spike,support,quality",
+      "created_at": "2026-06-12T11:47:36.921207+00:00"
+    },
+    {
+      "id": "kedb-006",
+      "error_code": "SALES-RECOVERY-DISCOUNT",
+      "title": "Successful sales recovery via flash discount",
+      "description": "After a sales drop event, a targeted 15-20% discount code applied to the affected product categories for 48 hours recovered 70-85% of lost revenue within the same week. Most effective when combined with email re-engagement to customers who visited the affected products during the drop period.\n",
+      "root_cause": "N/A \u2014 this is a successful recovery pattern",
+      "resolution": "1. Identify affected product categories from the drop event. 2. Create a 15-20% discount code with 48-hour expiry. 3. Email segment: customers who visited affected pages in past 7 days. 4. Monitor conversion lift hourly for first 6 hours. 5. Extend or deepen discount if 6-hour lift < 40%.\n",
+      "affected_domains": [
+        "sales",
+        "marketing"
+      ],
+      "recommended_actions": [
+        "apply_discount_code"
+      ],
+      "severity": "low",
+      "occurrence_count": 5,
+      "tags": "discount,recovery,sales_recovery,marketing",
+      "created_at": "2026-06-12T11:47:37.427003+00:00"
+    },
+    {
+      "id": "kedb-007",
+      "error_code": "INV-STOCKOUT-SEASONAL",
+      "title": "Stockout of seasonal high-demand products",
+      "description": "Pre-season demand surge exhausts inventory for seasonal items 2-3 weeks before planned restock arrival. Affects revenue by 20-25% during peak period. Pattern repeats Q4 (gifting) and Q2 (summer) consistently.\n",
+      "root_cause": "Seasonal demand forecasting underestimation",
+      "resolution": "1. Trigger emergency air-freight restock for top-5 seasonal SKUs. 2. Enable pre-order with estimated delivery date on product pages. 3. Run similar-product recommendation campaign to shift demand. 4. Update demand model with actual Q4/Q2 surge data post-incident.\n",
+      "affected_domains": [
+        "inventory",
+        "sales"
+      ],
+      "recommended_actions": [
+        "trigger_emergency_restock",
+        "send_customer_notification"
+      ],
+      "severity": "high",
+      "occurrence_count": 3,
+      "tags": "seasonal,stockout,demand_forecast,inventory",
+      "created_at": "2026-06-12T11:47:37.881709+00:00"
+    },
+    {
+      "id": "kedb-008",
+      "error_code": "MKT-CAMPAIGN-UNDERPERFORM-AUDIENCE",
+      "title": "Campaign underperformance due to audience mismatch",
+      "description": "ROAS drops below 1.5 (vs 3.2 target) when campaign audience targeting drifts due to platform algorithm changes or exhausted audience refresh. Common in Facebook/Instagram campaigns after 6+ weeks of same audience.\n",
+      "root_cause": "Audience fatigue or platform algorithm audience drift",
+      "resolution": "1. Pause underperforming ad sets immediately. 2. Create 3 new audience variants: lookalike 2%, interest-based, retargeting. 3. A/B test new audiences with 20% of original budget. 4. Refresh creative assets \u2014 same creative + exhausted audience = low CTR. 5. Increase audience refresh cadence to every 4 weeks.\n",
+      "affected_domains": [
+        "marketing"
+      ],
+      "recommended_actions": [
+        "resume_paused_campaign"
+      ],
+      "severity": "medium",
+      "occurrence_count": 4,
+      "tags": "audience_fatigue,roas_drop,campaign,social",
+      "created_at": "2026-06-12T11:47:38.514569+00:00"
+    },
+    {
+      "id": "kedb-009",
+      "error_code": "SALES-DROP-SITE-PERFORMANCE",
+      "title": "Revenue drop due to site performance degradation",
+      "description": "Conversion rate drops 30-50% when page load time exceeds 4 seconds. Usually triggered by unoptimised new feature deployment, CDN misconfiguration, or third-party script injection slowing time-to-interactive. Mobile conversion is disproportionately impacted.\n",
+      "root_cause": "Site performance degradation (high page load time)",
+      "resolution": "1. Roll back last deployment if performance degraded within 2 hours of deploy. 2. Run Lighthouse audit to identify top bottlenecks. 3. Disable newly added third-party scripts temporarily. 4. Engage CDN support if not caused by code change. 5. Implement performance budget alerts for CI/CD pipeline.\n",
+      "affected_domains": [
+        "sales"
+      ],
+      "recommended_actions": [
+        "escalate_to_support_team"
+      ],
+      "severity": "critical",
+      "occurrence_count": 2,
+      "tags": "site_performance,page_load,conversion_rate,infrastructure",
+      "created_at": "2026-06-12T11:47:39.188444+00:00"
+    },
+    {
+      "id": "kedb-010",
+      "error_code": "MKT-ATTRIBUTION-FAILURE",
+      "title": "Marketing attribution reporting failure",
+      "description": "Revenue appears to drop in dashboard while actual sales are healthy because GA4/attribution platform loses tracking pixels. Often caused by cookie consent changes, browser ITP, or tag manager deployment errors. Revenue is real; the data pipeline is broken.\n",
+      "root_cause": "Marketing attribution pixel or tag manager failure",
+      "resolution": "1. Cross-check revenue in payment processor (Stripe/PayPal) vs analytics. 2. Inspect GTM for recently changed/broken tags. 3. Validate GA4 real-time vs order management system order count. 4. Restore broken pixels and backfill attribution via server-side events. 5. Alert on attribution data gaps > 2 hours in monitoring stack.\n",
+      "affected_domains": [
+        "marketing",
+        "sales"
+      ],
+      "recommended_actions": [
+        "escalate_to_support_team"
+      ],
+      "severity": "medium",
+      "occurrence_count": 2,
+      "tags": "attribution,analytics,tracking_pixel,gtm,data_quality",
+      "created_at": "2026-06-12T11:47:39.684228+00:00"
+    },
+    {
+      "id": "kedb-011",
+      "error_code": "SALES-RECOVERY-RESTOCK-DISCOUNT",
+      "title": "Best-performing recovery for stockout-driven sales drops",
+      "description": "Across recorded stockout-driven revenue drops, the highest-impact recovery was a targeted 20% discount on affected categories combined with an emergency restock. Discount alone drove the majority of revenue recovery; restock was the necessary enabler; campaign resume and customer notification were faster but smaller levers.\n",
+      "root_cause": "N/A \u2014 recovery effectiveness pattern",
+      "resolution": "Apply a 20% discount to affected categories for 48h, trigger emergency restock for out-of-stock SKUs, and notify 7-day viewers. Expect ~83% revenue recovery within the week.\n",
+      "outcome": "apply_discount_code recovered ~58% of lost revenue in 48h (most effective); trigger_emergency_restock contributed ~25%; resume_paused_campaign ~12%; send_customer_notification ~5% direct but high retention value.\n",
+      "affected_domains": [
+        "sales",
+        "inventory",
+        "marketing"
+      ],
+      "recommended_actions": [
+        "apply_discount_code",
+        "trigger_emergency_restock",
+        "send_customer_notification"
+      ],
+      "severity": "low",
+      "occurrence_count": 5,
+      "tags": "what_worked,discount,restock,sales_recovery,outcome",
+      "created_at": "2026-06-12T11:47:40.125400+00:00"
+    },
+    {
+      "id": "kedb-012",
+      "error_code": "MKT-RECOVERY-RESUME-CAMPAIGN",
+      "title": "Best-performing recovery for paused-campaign drops",
+      "description": "For revenue drops caused purely by paused campaigns, resuming the campaigns and adding a budget buffer was by far the most effective action. Layering a discount on top added little and compressed margin.\n",
+      "root_cause": "N/A \u2014 recovery effectiveness pattern",
+      "resolution": "Resume paused campaigns immediately, top up budget with a 20-30% buffer, and enable accelerated delivery briefly. Avoid stacking a discount once traffic is restored.\n",
+      "outcome": "resume_campaign + budget top-up recovered ~75% of lost revenue within 24h (most effective); apply_discount_code added only ~10% incremental and was not justified.\n",
+      "affected_domains": [
+        "marketing",
+        "sales"
+      ],
+      "recommended_actions": [
+        "resume_campaign"
+      ],
+      "severity": "low",
+      "occurrence_count": 3,
+      "tags": "what_worked,campaign_pause,resume_campaign,outcome,marketing",
+      "created_at": "2026-06-12T11:47:40.584604+00:00"
+    },
+    {
+      "id": "kedb-013",
+      "error_code": "SUPPORT-RECOVERY-DEFECT-CONTAINMENT",
+      "title": "Best-performing recovery for product-defect refund spikes",
+      "description": "For refund spikes caused by a defective product batch, fast containment (pulling the SKU and escalating a recall ticket) plus proactive customer notification was the most effective response. Speed of containment mattered more than compensation.\n",
+      "root_cause": "N/A \u2014 recovery effectiveness pattern",
+      "resolution": "Open a support ticket, escalate to pull the SKU and recall the batch, then proactively notify affected purchasers. Expedite refunds for impacted orders.\n",
+      "outcome": "create_support_ticket + escalate_to_support_team stopped defective shipments within 3h and normalized refund rate in 5 days (most effective); send_customer_notification cut inbound complaints ~40% and protected review sentiment.\n",
+      "affected_domains": [
+        "support",
+        "inventory"
+      ],
+      "recommended_actions": [
+        "create_support_ticket",
+        "escalate_to_support_team",
+        "send_customer_notification"
+      ],
+      "severity": "medium",
+      "occurrence_count": 2,
+      "tags": "what_worked,product_defect,refund_spike,support,outcome",
+      "created_at": "2026-06-12T11:47:41.101563+00:00"
+    },
+    {
+      "id": "kedb-014",
+      "error_code": "INV-STOCKOUT-PROACTIVE-PRESTOCK",
+      "title": "Seasonal stockout prevented by proactive pre-stocking",
+      "description": "Repeated seasonal stockouts were largely prevented by raising reorder points 30% and pre-booking freight three weeks ahead of known Q2/Q4 demand surges.\n",
+      "root_cause": "Seasonal demand forecasting underestimation",
+      "resolution": "Raise reorder points +30% for top seasonal SKUs ahead of peak, pre-book air-freight for top-3 revenue SKUs, and stage pre-order flows on at-risk pages.\n",
+      "outcome": "Proactive pre-stocking cut seasonal stockout revenue loss from ~22% to under 6% in the following season.\n",
+      "affected_domains": [
+        "inventory",
+        "sales"
+      ],
+      "recommended_actions": [
+        "trigger_emergency_restock"
+      ],
+      "severity": "medium",
+      "occurrence_count": 3,
+      "tags": "what_worked,seasonal,stockout,prevention,inventory,outcome",
+      "created_at": "2026-06-12T11:47:41.732465+00:00"
+    }
+  ]
+}
