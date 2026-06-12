@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@eob/api-client": ["packages/api-client/src/index.ts"],
+      "@eob/api-client/*": ["packages/api-client/src/*"],
+      "@eob/ui": ["packages/ui/src/index.ts"],
+      "@eob/ui/*": ["packages/ui/src/*"]
+    }
+  }
+}
